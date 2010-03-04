@@ -42,3 +42,6 @@ void extractMatrix( char *matrix, int *C );
 //  Description:  Performs simple cut and dry matrix mult.
 // ============================================================================
 int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2);
+
+
+void extractMatrix2( char *filename, int *C );

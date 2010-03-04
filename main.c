@@ -41,13 +41,20 @@ int main( int argc, char *argv[] )
     int A[A_SIZE];
     int B[B_SIZE];
 
+    extractMatrix2(matrixA,A);
+    extractMatrix2(matrixB,B);
+
     // Read Files
     char* A_string = NULL;
     char* B_string = NULL;
 
+    int i;
+    for( i = 0; i < x2*y2 ; i++)
+        printf("%d ", B[i]);
+
     // Get the matrix into a string
 //    readFile(matrixA, &A_string);
-    readFile(matrixB, &B_string);
+//    readFile(matrixB, &B_string);
 
     // Get the string matrix into an actual int array
 //    extractMatrix(A_string, A);
@@ -105,6 +112,17 @@ void readFile( char *filename , char** output)
     fclose(fp);
 }
 
+void extractMatrix2( char *filename, int *C )
+{
+    FILE *file = fopen(filename, "rb");
+    int i;
+    int element; 
+    for( i = 0; fscanf(file,"%d",&element) != EOF ; i++ )
+    {
+        C[i] = element;
+    }
+    // Done
+}
 void writeFile( int *matrix, int x1, int y1)
 {
     FILE *output = fopen("C.txt", "w");
