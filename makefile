@@ -2,7 +2,7 @@
 
 BINARY = main
 CFLAGS = -g -Wall 
-MATRIX_DIMENSIONS = 2 3 1
+MATRIX_DIMENSIONS = 2 2 2
 VALGRIND = --tool=memcheck
 
 $(BINARY): main.h main.c

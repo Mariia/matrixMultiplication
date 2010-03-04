@@ -46,23 +46,23 @@ int main( int argc, char *argv[] )
     char* B_string = NULL;
 
     // Get the matrix into a string
-    readFile(matrixA, &A_string);
+//    readFile(matrixA, &A_string);
     readFile(matrixB, &B_string);
 
     // Get the string matrix into an actual int array
-    extractMatrix(A_string, A);
-    extractMatrix(B_string, B);
+//    extractMatrix(A_string, A);
+//    extractMatrix(B_string, B);
 
     // Testing the matrix mult. simple algorithm
-    int *newMatrix = matrixMult(A, x1, y1, B, x2, y2);
+//    int *newMatrix = matrixMult(A, x1, y1, B, x2, y2);
     
     // Write data to file
-    writeFile(newMatrix, x1, y2);
+//    writeFile(newMatrix, x1, y2);
 
     // Clean up
-    free(A_string);
+//    free(A_string);
     free(B_string);
-    free(newMatrix);
+//    free(newMatrix);
     return 0;
 }// ----------  end of function main  ----------
 
@@ -85,7 +85,7 @@ void readFile( char *filename , char** output)
     rewind(fp);
 
     // Allocate memory for buffer
-    *output = (char *)malloc(fileSize + 1);
+    *output = (char *)malloc(fileSize);
 
     // Read data into buffer and return the value of stuff read to count
     count = fread(*output, 1, fileSize, fp);
@@ -98,7 +98,9 @@ void readFile( char *filename , char** output)
     }
     // This will write into memory that you don't want 
     // Make it a null terminated string
-//    output[count] = '\0';
+    output[fileSize] = '\0';
+
+    free(output);
 
     fclose(fp);
 }
@@ -135,6 +137,7 @@ void extractMatrix( char *matrix, int *C )
     {
         if( matrix[i] != ' ' && matrix[i] != '\n' )
         {
+            currentChar = matrix[i];
             temp[j] = matrix[i];
             j++;
             i++;
@@ -143,6 +146,7 @@ void extractMatrix( char *matrix, int *C )
         {
             C[k] = atoi(temp);
             i++;
+            currentChar = matrix[i];
             j = 0;
             k++;
         }

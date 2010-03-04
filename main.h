@@ -23,6 +23,11 @@
 // ============================================================================
 void readFile( char *filename , char** output);
 
+
+// ===  FUNCTION  =============================================================
+//         Name:  writeFile(int*,int,int)
+//  Description:  Simply writes the result of the matrix into a text file
+// ============================================================================
 void writeFile( int *matrix, int x1, int y1);
 
 // ===  FUNCTION  =============================================================
