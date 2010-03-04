@@ -64,14 +64,21 @@ int main( int argc, char *argv[] )
 //    puts("");
 
     // Testing the matrix mult. simple algorithm
-    matrixMult(A, x1, y1, B, x2, y2);
+    int *newMatrix = matrixMult(A, x1, y1, B, x2, y2);
+    
+    int i;
+    for( i = 0; i < (x1*y2) ; i++ )
+        printf("%d ", newMatrix[i]);
 
-
+    // Clean up
+    free(A_string);
+    free(B_string);
+    free(newMatrix);
     return 0;
 }// ----------  end of function main  ----------
 
 void readFile( char *filename , char** output)
-{
+{   
     FILE *fp = fopen(filename,"rb");
     long fileSize;
     int count;
@@ -133,19 +140,26 @@ void extractMatrix( char *matrix, int *C )
     }while( currentChar != '\0' );
 }
 
-void matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
+// There is a warning thrown here: warning: function returns address of local variable
+int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
 {
+    // Row-major Order: row*NUMOFCOLS+column
     // Create new matrix
-    int multMatrix[x1*y2];
-    int x,y;
+    int *multMatrix = (int *)malloc(sizeof(int)*(x1*y2));
+    int k,x,y,result = 0;
     
-    // Move row
-    for( x = 0 ; x < x1 ; x++ )
+    for( k = 0; k < y2 ; k++)
     {
-        for ( y = 0; y < y1 ; y++ )
+        // Move row
+        for( x = 0 ; x < x1 ; x++ )
         {
-            printf("%d ", A[x*(x1+1) + y]);
+            for ( y = 0; y < y1 ; y++ )
+            {
+                result += A[x*(y1) + y]*B[k*(y2) + y];
+            }
+            multMatrix[k*y2+x] = result;
+            result = 0;
         }
-        puts("");
     }
+    return multMatrix;
 }

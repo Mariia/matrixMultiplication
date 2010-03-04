@@ -34,4 +34,4 @@ void extractMatrix( char *matrix, int *C );
 //         Name:  matrixMult(int*,int,int,int*,int,int)
 //  Description:  Performs simple cut and dry matrix mult.
 // ============================================================================
-void matrixMult(int *A, int x1, int y1, int *B, int x2, int y2);
+int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2);
