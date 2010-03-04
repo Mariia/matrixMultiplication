@@ -45,22 +45,28 @@ int main( int argc, char *argv[] )
     char* A_string = NULL;
     char* B_string = NULL;
 
+    // Get the matrix into a string
     readFile(matrixA, &A_string);
     readFile(matrixB, &B_string);
 
+    // Get the string matrix into an actual int array
     extractMatrix(A_string, A);
     extractMatrix(B_string, B);
 
-    printf("%d %d %d %d\n%s\n%s", x1, y1, x2, y2, A_string, B_string);     
+    // Testing the reading in
+//    int i = 0;
+//    for( i = 0; i < A_SIZE ; i++)
+//        printf("%d ", A[i]);
+//    puts("");
+//
+//    for( i = 0; i < B_SIZE ; i++)
+//        printf("%d ", B[i]);
+//    puts("");
 
-    int i = 0;
-    for( i = 0; i < A_SIZE ; i++)
-        printf("%d ", A[i]);
-    puts("");
+    // Testing the matrix mult. simple algorithm
+    matrixMult(A, x1, y1, B, x2, y2);
 
-    for( i = 0; i < B_SIZE ; i++)
-        printf("%d ", B[i]);
-    puts("");
+
     return 0;
 }// ----------  end of function main  ----------
 
@@ -94,11 +100,10 @@ void readFile( char *filename , char** output)
         fputs("File was not read properly.\n", stderr);
         exit(1);
     }
+    // This will write into memory that you don't want 
     // Make it a null terminated string
-    output[count] = '\0';
+//    output[count] = '\0';
 
-//    printf("%s", *output);
-    // Clean up
     fclose(fp);
 }
 
@@ -126,4 +131,21 @@ void extractMatrix( char *matrix, int *C )
             k++;
         }
     }while( currentChar != '\0' );
+}
+
+void matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
+{
+    // Create new matrix
+    int multMatrix[x1*y2];
+    int x,y;
+    
+    // Move row
+    for( x = 0 ; x < x1 ; x++ )
+    {
+        for ( y = 0; y < y1 ; y++ )
+        {
+            printf("%d ", A[x*(x1+1) + y]);
+        }
+        puts("");
+    }
 }

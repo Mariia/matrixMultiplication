@@ -23,10 +23,15 @@
 // ============================================================================
 void readFile( char *filename , char** output);
 
-
 // ===  FUNCTION  =============================================================
 //         Name:  extractMatrix(char*,int*)
 //  Description:  Get the matrix from the string and put it into an actual int 
 //                matrix.
 // ============================================================================
 void extractMatrix( char *matrix, int *C );
+
+// ===  FUNCTION  =============================================================
+//         Name:  matrixMult(int*,int,int,int*,int,int)
+//  Description:  Performs simple cut and dry matrix mult.
+// ============================================================================
+void matrixMult(int *A, int x1, int y1, int *B, int x2, int y2);
