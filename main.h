@@ -23,6 +23,8 @@
 // ============================================================================
 void readFile( char *filename , char** output);
 
+void writeFile( int *matrix, int x1, int y1);
+
 // ===  FUNCTION  =============================================================
 //         Name:  extractMatrix(char*,int*)
 //  Description:  Get the matrix from the string and put it into an actual int 

@@ -53,22 +53,11 @@ int main( int argc, char *argv[] )
     extractMatrix(A_string, A);
     extractMatrix(B_string, B);
 
-    // Testing the reading in
-//    int i = 0;
-//    for( i = 0; i < A_SIZE ; i++)
-//        printf("%d ", A[i]);
-//    puts("");
-//
-//    for( i = 0; i < B_SIZE ; i++)
-//        printf("%d ", B[i]);
-//    puts("");
-
     // Testing the matrix mult. simple algorithm
     int *newMatrix = matrixMult(A, x1, y1, B, x2, y2);
     
-    int i;
-    for( i = 0; i < (x1*y2) ; i++ )
-        printf("%d ", newMatrix[i]);
+    // Write data to file
+    writeFile(newMatrix, x1, y2);
 
     // Clean up
     free(A_string);
@@ -114,6 +103,26 @@ void readFile( char *filename , char** output)
     fclose(fp);
 }
 
+void writeFile( int *matrix, int x1, int y1)
+{
+    FILE *output = fopen("C.txt", "w");
+    int x,y;
+
+    // Write out the matrix in the ouput file
+    for( x = 0; x < x1; x++ )
+    {
+        for( y = 0; y < y1-1; y++ )
+        {
+            fprintf(output,"%d ", matrix[x*y1 + y]);
+        }
+        // This will prevent the extraspace and instead let's put a newline
+        fprintf(output,"%d\n", matrix[x*y1 + y]);
+    }
+
+    //Clean up
+    fclose(output);
+}
+
 void extractMatrix( char *matrix, int *C )
 {
     // This is assuming that there will only be 4 digits
@@ -140,7 +149,6 @@ void extractMatrix( char *matrix, int *C )
     }while( currentChar != '\0' );
 }
 
-// There is a warning thrown here: warning: function returns address of local variable
 int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
 {
     // Row-major Order: row*NUMOFCOLS+column
