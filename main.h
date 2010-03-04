@@ -35,7 +35,7 @@ void writeFile( int *matrix, int x1, int y1);
 //  Description:  Get the matrix from the string and put it into an actual int 
 //                matrix.
 // ============================================================================
-void extractMatrix( char *matrix, int *C );
+void extractMatrix( char *filename, int *C );
 
 // ===  FUNCTION  =============================================================
 //         Name:  matrixMult(int*,int,int,int*,int,int)
@@ -44,4 +44,3 @@ void extractMatrix( char *matrix, int *C );
 int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2);
 
 
-void extractMatrix2( char *filename, int *C );

@@ -41,16 +41,16 @@ int main( int argc, char *argv[] )
     int A[A_SIZE];
     int B[B_SIZE];
 
-    extractMatrix2(matrixA,A);
-    extractMatrix2(matrixB,B);
+    extractMatrix(matrixA,A);
+    extractMatrix(matrixB,B);
 
     // Read Files
-    char* A_string = NULL;
-    char* B_string = NULL;
+//    char* A_string = NULL;
+//    char* B_string = NULL;
 
-    int i;
-    for( i = 0; i < x2*y2 ; i++)
-        printf("%d ", B[i]);
+//    int i;
+//    for( i = 0; i < x2*y2 ; i++)
+//        printf("%d ", B[i]);
 
     // Get the matrix into a string
 //    readFile(matrixA, &A_string);
@@ -61,15 +61,15 @@ int main( int argc, char *argv[] )
 //    extractMatrix(B_string, B);
 
     // Testing the matrix mult. simple algorithm
-//    int *newMatrix = matrixMult(A, x1, y1, B, x2, y2);
+    int *newMatrix = matrixMult(A, x1, y1, B, x2, y2);
     
     // Write data to file
-//    writeFile(newMatrix, x1, y2);
+    writeFile(newMatrix, x1, y2);
 
     // Clean up
 //    free(A_string);
-    free(B_string);
-//    free(newMatrix);
+//    free(B_string);
+    free(newMatrix);
     return 0;
 }// ----------  end of function main  ----------
 
@@ -112,7 +112,7 @@ void readFile( char *filename , char** output)
     fclose(fp);
 }
 
-void extractMatrix2( char *filename, int *C )
+void extractMatrix( char *filename, int *C )
 {
     FILE *file = fopen(filename, "rb");
     int i;
@@ -123,6 +123,7 @@ void extractMatrix2( char *filename, int *C )
     }
     // Done
 }
+
 void writeFile( int *matrix, int x1, int y1)
 {
     FILE *output = fopen("C.txt", "w");
@@ -143,34 +144,6 @@ void writeFile( int *matrix, int x1, int y1)
     fclose(output);
 }
 
-void extractMatrix( char *matrix, int *C )
-{
-    // This is assuming that there will only be 4 digits
-    char temp[4];
-    char currentChar = '$';
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    do
-    {
-        if( matrix[i] != ' ' && matrix[i] != '\n' )
-        {
-            currentChar = matrix[i];
-            temp[j] = matrix[i];
-            j++;
-            i++;
-        }
-        else
-        {
-            C[k] = atoi(temp);
-            i++;
-            currentChar = matrix[i];
-            j = 0;
-            k++;
-        }
-    }while( currentChar != '\0' );
-}
-
 int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
 {
     // Row-major Order: row*NUMOFCOLS+column
@@ -185,11 +158,41 @@ int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
         {
             for ( y = 0; y < y1 ; y++ )
             {
-                result += A[x*(y1) + y]*B[k*(y2) + y];
+                result += A[x*(y1) + y]*B[y*(y2) + k];
+//                printf("%d %d\n",A[x*(y1) + y],B[y*(y2) + k]);
             }
-            multMatrix[k*y2+x] = result;
+            multMatrix[x*y2+k] = result;
             result = 0;
         }
     }
     return multMatrix;
 }
+
+//void extractMatrix( char *matrix, int *C )
+//{
+//    // This is assuming that there will only be 4 digits
+//    char temp[4];
+//    char currentChar = '$';
+//    int i = 0;
+//    int j = 0;
+//    int k = 0;
+//    do
+//    {
+//        if( matrix[i] != ' ' && matrix[i] != '\n' )
+//        {
+//            currentChar = matrix[i];
+//            temp[j] = matrix[i];
+//            j++;
+//            i++;
+//        }
+//        else
+//        {
+//            C[k] = atoi(temp);
+//            i++;
+//            currentChar = matrix[i];
+//            j = 0;
+//            k++;
+//        }
+//    }while( currentChar != '\0' );
+//}
+//
