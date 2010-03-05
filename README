@@ -1,0 +1,1 @@
+To compile the code simply run 'make' and to run it use 'make run' it will run passing it arguments specified in the makefile, which would have to be edited.
