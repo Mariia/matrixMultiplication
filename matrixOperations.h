@@ -1,20 +1,36 @@
 // ============================================================================
 // 
-//       Filename:  main.h
+//       Filename:  matrixOperations.h
 // 
-//    Description:  Contain matrix operations
+//    Description:  Contains the declarations of the matrix operations, 
+//                  including intializing MPI and getting the information from
+//                  a file.
 // 
 //        Created:  03/03/2010 04:53:39 PM
-//       Compiler:  g**
+//       Compiler:  mpicc
 // 
 //         Author:  Jose V. Trigueros (), j.v.trigueros@gmail.com
 // 
 // ============================================================================
    
-   
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <mpi.h>
 
+#define matrixA "A.txt"
+#define matrixB "B.txt"
+
+// Global Variables
+int gNumProcessors, gRank;     // gRank is the current processor
+double gStartTime, gEndTime;
+
+// ===  FUNCTION  =============================================================
+//         Name:  initializeMPI(int*,char**)
+//  Description:  This is just a subroutine running the things necessary to set
+//                MPI.
+// ============================================================================
+void initializeMPI(int * argc, char ** argv);
 
 // ===  FUNCTION  =============================================================
 //         Name:  readFile(char*,char*)
@@ -22,7 +38,6 @@
 //                as reference.
 // ============================================================================
 void readFile( char *filename , char** output);
-
 
 // ===  FUNCTION  =============================================================
 //         Name:  writeFile(int*,int,int)
@@ -42,5 +57,3 @@ void extractMatrix( char *filename, int *C );
 //  Description:  Performs simple cut and dry matrix mult.
 // ============================================================================
 int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2);
-
-

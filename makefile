@@ -1,18 +1,30 @@
 #! /bin/bash
 
-BINARY = main
-CFLAGS = -g -Wall 
+
+SERIAL = serial
+PARALLEL = parallel
+CANNON = cannon
+
+CFLAGS = -g -Wall -c
 MATRIX_DIMENSIONS = 4 2 3
 VALGRIND = --tool=memcheck
 
-$(BINARY): main.h main.c
-	gcc $(CFLAGS) main.c -o $(BINARY)
+serial: serial.o matrixOperations.o
+	mpicc serial.o matrixOperations.o -o $(SERIAL)
 
-run:
-	./main $(MATRIX_DIMENSIONS)
+# Dependencies
+serial.o: serial.c
+	mpicc $(CFLAGS) serial.c
 
-memtest:
-	valgrind $(VALGRIND) ./main $(MATRIX_DIMENSIONS)
+matrixOperations.o: matrixOperations.c
+	mpicc $(CFLAGS) matrixOperations.c
+
+# Running and Performance
+runSerial:
+	mpiexec ./$(SERIAL) $(MATRIX_DIMENSIONS)
+
+memtestSerial:
+	valgrind $(VALGRIND) mpiexec ./$(SERIAL) $(MATRIX_DIMENSIONS)
 
 clean:
-	rm $(BINARY)
+	rm -f $(SERIAL) $(PARALLEL) $(CANNON) *.o

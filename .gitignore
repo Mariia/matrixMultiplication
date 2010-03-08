@@ -1,4 +1,6 @@
 *swp
-main
 *.txt
+*.o
 Tests
+temp
+serial

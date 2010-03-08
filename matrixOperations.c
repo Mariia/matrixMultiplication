@@ -1,77 +1,37 @@
 // ============================================================================
 // 
-//       Filename:  main.c
+//       Filename:  matrixOperations.c
 // 
-//    Description:  Simple Matrix Multiplication
+//    Description:  Contains the implementations of the matrix operations, 
+//                  including intializing MPI and getting the information from
+//                  a file.
 // 
-//        Created:  03/03/2010 01:23:46 PM
+//        Created:  03/08/2010 02:16:50 AM
+//       Compiler:  mpicc
 // 
 //         Author:  Jose V. Trigueros , j.v.trigueros@gmail.com
 // 
 // ============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "main.h"
+#include "matrixOperations.h"
 
-#define matrixA "A.txt"
-#define matrixB "B.txt"
-
-int main( int argc, char *argv[] )
+void initializeMPI(int * argc, char ** argv)
 {
-    // Reading input from command line arguments
-    // Should only have 3 arguments passed
-    if ( argc != 4 ) 
+    // Initialize MPI
+    int mpiStatus = MPI_Init(argc,&argv);
+    if( mpiStatus != MPI_SUCCESS )
     {
-        printf("%d argument(s) given." , argc - 1);
-        return 1;
+        // Something went wrong and we must quit
+        printf("Something went wrong with MPI and we must quit\n");
+        MPI_Abort(MPI_COMM_WORLD, mpiStatus );
     }
 
-    // Get sizes of matrix
-    int x1 = atoi(argv[1]);
-    int y1 = atoi(argv[2]);
-    int x2 = atoi(argv[2]);
-    int y2 = atoi(argv[3]);
+    // Returns the number of processors
+    MPI_Comm_size(MPI_COMM_WORLD, &gNumProcessors);
 
-    int const A_SIZE = x1*y1;
-    int const B_SIZE = x2*y2;
-
-    // Create the array of matrices
-    int A[A_SIZE];
-    int B[B_SIZE];
-
-    extractMatrix(matrixA,A);
-    extractMatrix(matrixB,B);
-
-    // Read Files
-//    char* A_string = NULL;
-//    char* B_string = NULL;
-
-//    int i;
-//    for( i = 0; i < x2*y2 ; i++)
-//        printf("%d ", B[i]);
-
-    // Get the matrix into a string
-//    readFile(matrixA, &A_string);
-//    readFile(matrixB, &B_string);
-
-    // Get the string matrix into an actual int array
-//    extractMatrix(A_string, A);
-//    extractMatrix(B_string, B);
-
-    // Testing the matrix mult. simple algorithm
-    int *newMatrix = matrixMult(A, x1, y1, B, x2, y2);
-    
-    // Write data to file
-    writeFile(newMatrix, x1, y2);
-
-    // Clean up
-//    free(A_string);
-//    free(B_string);
-    free(newMatrix);
-    return 0;
-}// ----------  end of function main  ----------
+    // Returns the current processor ID
+    MPI_Comm_rank(MPI_COMM_WORLD, &gRank);
+}
 
 void readFile( char *filename , char** output)
 {   
@@ -167,32 +127,3 @@ int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
     }
     return multMatrix;
 }
-
-//void extractMatrix( char *matrix, int *C )
-//{
-//    // This is assuming that there will only be 4 digits
-//    char temp[4];
-//    char currentChar = '$';
-//    int i = 0;
-//    int j = 0;
-//    int k = 0;
-//    do
-//    {
-//        if( matrix[i] != ' ' && matrix[i] != '\n' )
-//        {
-//            currentChar = matrix[i];
-//            temp[j] = matrix[i];
-//            j++;
-//            i++;
-//        }
-//        else
-//        {
-//            C[k] = atoi(temp);
-//            i++;
-//            currentChar = matrix[i];
-//            j = 0;
-//            k++;
-//        }
-//    }while( currentChar != '\0' );
-//}
-//
