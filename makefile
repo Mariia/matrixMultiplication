@@ -35,5 +35,8 @@ runParallel:
 memtestSerial:
 	valgrind $(VALGRIND) mpiexec ./$(SERIAL) $(MATRIX_DIMENSIONS)
 
+memtestParallel:
+	valgrind $(VALGRIND) mpiexec ./$(PARALLEL) $(MATRIX_DIMENSIONS)
+
 clean:
 	rm -f $(SERIAL) $(PARALLEL) $(CANNON) *.o
