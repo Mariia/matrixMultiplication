@@ -35,7 +35,14 @@ int * B;
 //  Description:  Will initialize the matrix information like size and the 
 //                actual arrays.
 // ============================================================================
-void setMatrixData(int argc, char argv[]);
+void setMatrixData(int argc, char ** argv);
+
+
+// ===  FUNCTION  =============================================================
+//         Name:  freeMatrixData()
+//  Description:  Releases the data Matrices
+// ============================================================================
+void freeMatrixData();
 
 // ===  FUNCTION  =============================================================
 //         Name:  initializeMPI(int*,char**)

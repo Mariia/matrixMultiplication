@@ -15,7 +15,7 @@
 
 #include "matrixOperations.h"
 
-void setMatrixData(int argc, char argv[])
+void setMatrixData(int argc, char ** argv)
 {
     // Get data from command line arguments
     gX1 = atoi(argv[1]);
@@ -23,12 +23,15 @@ void setMatrixData(int argc, char argv[])
     gX2 = atoi(argv[2]);
     gY2 = atoi(argv[3]);
 
-    int i = 0;
-    printf("%d %d %d %d\n", gX1, gY1, gX2, gY2);
-
     // Allocate space for Matrices 
     A = (int *)malloc( sizeof(int)*(gX1*gY1) );
     B = (int *)malloc( sizeof(int)*(gX2*gY2) );
+}
+
+void freeMatrixData()
+{
+    free(A);
+    free(B);
 }
 
 void initializeMPI(int * argc, char ** argv)
