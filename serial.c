@@ -12,9 +12,6 @@
 
 #include "matrixOperations.h"
 
-//#define matrixA "A.txt"
-//#define matrixB "B.txt"
-
 int main( int argc, char *argv[] )
 {
     initializeMPI(&argc,argv);
@@ -31,6 +28,8 @@ int main( int argc, char *argv[] )
             return 1;
         }
 
+        setMatrixData(argc,&argv);
+
         // Get sizes of matrix
         int x1 = atoi(argv[1]);
         int y1 = atoi(argv[2]);
@@ -44,8 +43,8 @@ int main( int argc, char *argv[] )
         int A[A_SIZE];
         int B[B_SIZE];
 
-        extractMatrix(matrixA,A);
-        extractMatrix(matrixB,B);
+        extractMatrix(gMatrixA,A);
+        extractMatrix(gMatrixB,B);
 
         // Read Files
     //    char* A_string = NULL;

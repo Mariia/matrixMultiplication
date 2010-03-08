@@ -18,12 +18,24 @@
 #include <string.h>
 #include <mpi.h>
 
-#define matrixA "A.txt"
-#define matrixB "B.txt"
+#define gMatrixA "A.txt"
+#define gMatrixB "B.txt"
 
 // Global Variables
 int gNumProcessors, gRank;     // gRank is the current processor
+int gX1,gY1,gX2,gY2;           // size of matrix A and matrix B
 double gStartTime, gEndTime;
+
+int * A;
+int * B;
+
+// Create constant variables for sizes and create matrices
+// ===  FUNCTION  =============================================================
+//         Name:  setMatrixData(int,char*)
+//  Description:  Will initialize the matrix information like size and the 
+//                actual arrays.
+// ============================================================================
+void setMatrixData(int argc, char argv[]);
 
 // ===  FUNCTION  =============================================================
 //         Name:  initializeMPI(int*,char**)
