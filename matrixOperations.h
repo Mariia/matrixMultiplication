@@ -26,8 +26,8 @@ int gNumProcessors, gRank;     // gRank is the current processor
 int gX1,gY1,gX2,gY2;           // size of matrix A and matrix B
 double gStartTime, gEndTime;
 
-int * A;
-int * B;
+double * A;
+double * B;
 
 // Create constant variables for sizes and create matrices
 // ===  FUNCTION  =============================================================
@@ -62,17 +62,17 @@ void readFile( char *filename , char** output);
 //         Name:  writeFile(int*,int,int)
 //  Description:  Simply writes the result of the matrix into a text file
 // ============================================================================
-void writeFile( int *matrix, int x1, int y1);
+void writeFile( double *matrix, int x1, int y1);
 
 // ===  FUNCTION  =============================================================
-//         Name:  extractMatrix(char*,int*)
+//         Name:  extractMatrix(char*,double*)
 //  Description:  Get the matrix from the string and put it into an actual int 
 //                matrix.
 // ============================================================================
-void extractMatrix( char *filename, int *C );
+void extractMatrix( char *filename, double *C );
 
 // ===  FUNCTION  =============================================================
-//         Name:  matrixMult(int*,int,int,int*,int,int)
+//         Name:  matrixMult(double*,int,int,double*,int,int)
 //  Description:  Performs simple cut and dry matrix mult.
 // ============================================================================
-int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2);
+double *matrixMult(double *A, int x1, int y1, double *B, int x2, int y2);

@@ -30,14 +30,13 @@ int main( int argc, char *argv[] )
         // Get sizes of matrix
         // Create the array of matrices
         setMatrixData(argc,argv);
-
         extractMatrix(gMatrixA,A);
         extractMatrix(gMatrixB,B);
 
         // We only count the time it takes for this matrix to multiply
         gStartTime = MPI_Wtime();
         // Testing the matrix mult. simple algorithm
-        int *newMatrix = matrixMult(A, gX1, gY1, B, gX2, gY2);
+        double *newMatrix = matrixMult(A, gX1, gY1, B, gX2, gY2);
         gEndTime = MPI_Wtime();
         
         // Write data to file

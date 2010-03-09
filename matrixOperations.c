@@ -24,8 +24,8 @@ void setMatrixData(int argc, char ** argv)
     gY2 = atoi(argv[3]);
 
     // Allocate space for Matrices 
-    A = (int *)malloc( sizeof(int)*(gX1*gY1) );
-    B = (int *)malloc( sizeof(int)*(gX2*gY2) );
+    A = (double *)malloc( sizeof(double)*(gX1*gY1) );
+    B = (double *)malloc( sizeof(double)*(gX2*gY2) );
 }
 
 void freeMatrixData()
@@ -52,6 +52,7 @@ void initializeMPI(int * argc, char ** argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &gRank);
 }
 
+// This may not be used anymore
 void readFile( char *filename , char** output)
 {   
     FILE *fp = fopen(filename,"rb");
@@ -91,19 +92,19 @@ void readFile( char *filename , char** output)
     fclose(fp);
 }
 
-void extractMatrix( char *filename, int *C )
+void extractMatrix( char *filename, double *C )
 {
     FILE *file = fopen(filename, "rb");
     int i;
-    int element; 
-    for( i = 0; fscanf(file,"%d",&element) != EOF ; i++ )
+    double element; 
+    for( i = 0; fscanf(file,"%lf",&element) != EOF ; i++ )
     {
         C[i] = element;
     }
     // Done
 }
 
-void writeFile( int *matrix, int x1, int y1)
+void writeFile( double *matrix, int x1, int y1)
 {
     FILE *output = fopen("C.txt", "w");
     int x,y;
@@ -113,22 +114,23 @@ void writeFile( int *matrix, int x1, int y1)
     {
         for( y = 0; y < y1-1; y++ )
         {
-            fprintf(output,"%d ", matrix[x*y1 + y]);
+            fprintf(output,"%lf ", matrix[x*y1 + y]);
         }
         // This will prevent the extraspace and instead let's put a newline
-        fprintf(output,"%d\n", matrix[x*y1 + y]);
+        fprintf(output,"%lf\n", matrix[x*y1 + y]);
     }
 
     //Clean up
     fclose(output);
 }
 
-int *matrixMult(int *A, int x1, int y1, int *B, int x2, int y2)
+double *matrixMult(double *A, int x1, int y1, double *B, int x2, int y2)
 {
     // Row-major Order: row*NUMOFCOLS+column
     // Create new matrix
-    int *multMatrix = (int *)malloc(sizeof(int)*(x1*y2));
-    int k,x,y,result = 0;
+    double *multMatrix = (double *)malloc(sizeof(double)*(x1*y2));
+    int k,x,y;
+    double result = 0.0;
     
     for( k = 0; k < y2 ; k++)
     {
