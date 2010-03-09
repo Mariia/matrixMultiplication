@@ -33,20 +33,56 @@ int main( int argc, char *argv[] )
 
         // Once done spread the wealth
         MPI_Bcast(A, gX1*gY1, MPI_INT, mainThread, MPI_COMM_WORLD);
+        MPI_Bcast(B, gX2*gY2, MPI_INT, mainThread, MPI_COMM_WORLD);
     }
     else
     {
         // Get the wealth
         MPI_Bcast(A, gX1*gY1, MPI_INT, mainThread, MPI_COMM_WORLD);
+        MPI_Bcast(B, gX2*gY2, MPI_INT, mainThread, MPI_COMM_WORLD);
     }
 
-    // At this point everyone should have Matrix A
+    // At this point everyone should have Matrix A and B
+    // It is time to start distributing 
 
-    // Test by having each processor print a number from MatA
-    printf("Processor %d: %d\n",gRank, A[gRank]);
+    // Create temporary matrix
+    int * tempC = (int *)malloc(sizeof(int)*(gX1));
+
+    // Check how many threads we have
+    printf("%d \n", gNumProcessors);
+    if( gNumProcessors >= (gY2+1) )
+    {
+        // So we have enough processors to cover all columns
+        int i, j, tempSum = 0;
+        for( i = 0; i < gX1 ; i++ )
+        {
+            for( j = 0; j < gY1 ; j++ )
+            {
+                tempSum += A[i*(gY1) + j]*B[j*gY2 + gRank];
+            }
+            tempC[i] = tempSum;
+            tempSum = 0;
+        }
+    }
+
+    // Everybody should have their data now so let's sync
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    // Print vector
+    if( tempC != NULL && gRank == 0 )
+    {
+        int i;
+        for( i = 0; i < gX1; i++ )
+        {
+            printf("My rank is: %d\n" , gRank);
+            printf("%d ", tempC[i]);
+            puts("");
+        }
+    }
 
 
     // Free Data
+    free(tempC);
     freeMatrixData();
 
     // Finalize MPI

@@ -6,7 +6,7 @@ PARALLEL = parallel
 CANNON = cannon
 
 CFLAGS = -g -Wall -c
-MATRIX_DIMENSIONS = 4 2 3
+MATRIX_DIMENSIONS = 4 4 4
 VALGRIND = --tool=memcheck
 
 serial: serial.o matrixOperations.o
