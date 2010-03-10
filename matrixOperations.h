@@ -42,7 +42,7 @@ void setMatrixData(int argc, char ** argv);
 //         Name:  freeMatrixData()
 //  Description:  Releases the data Matrices
 // ============================================================================
-void freeMatrixData();
+void freeMatrixData(void);
 
 // ===  FUNCTION  =============================================================
 //         Name:  initializeMPI(int*,char**)

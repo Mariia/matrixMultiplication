@@ -15,6 +15,7 @@
 int main( int argc, char *argv[] )
 {
     initializeMPI(&argc,argv);
+    gStartTime = MPI_Wtime();
 
     // Only the root node should run all this code
     if( gRank == 0 && argc == 4)
@@ -33,8 +34,6 @@ int main( int argc, char *argv[] )
         extractMatrix(gMatrixA,A);
         extractMatrix(gMatrixB,B);
 
-        // We only count the time it takes for this matrix to multiply
-        gStartTime = MPI_Wtime();
         // Testing the matrix mult. simple algorithm
         double *newMatrix = matrixMult(A, gX1, gY1, B, gX2, gY2);
         gEndTime = MPI_Wtime();

@@ -22,7 +22,11 @@ int main( int argc, char *argv[] )
 
     // Initialize MPI
     initializeMPI(&argc,argv);
-     
+
+    // Start tracking time
+    if( gRank == mainThread )
+        gStartTime = MPI_Wtime();
+
     // Get sizes of matrix
     // Create the array of matrices
     setMatrixData(argc,argv);
@@ -51,7 +55,7 @@ int main( int argc, char *argv[] )
     double * tempC = (double *)malloc(sizeof(double)*(gX1));
 
     // Check how many threads we have
-    if( gNumProcessors == gY2 )
+    if( gNumProcessors >= gY2 )
     {
         // So we have enough processors to cover all columns
         int i, j; 
@@ -100,7 +104,7 @@ int main( int argc, char *argv[] )
             // Collect all vectors into the matrix
             for(i = 0; i < gX1; i++)
             {
-                finalMatrix[i*gY2+currentRank] = tempC[i];
+                finalMatrix[i*gY2+currentRank] = tempVector[i];
             }
             free(tempVector);
         }
@@ -111,27 +115,23 @@ int main( int argc, char *argv[] )
         MPI_Send(tempC, gX1, MPI_DOUBLE, mainThread,gRank,MPI_COMM_WORLD);
     }
 
-    // Print vector
-//    if( tempC != NULL )
-//    {
-//        int i;
-//        for( i = 0; i < gX1; i++ )
-//        {
-//            printf("My rank is: %d\n" , gRank);
-//            printf("%lf ", tempC[i]);
-//            puts("");
-//        }
-//    }
-    
+    //Get the final time now
+    if( gRank == mainThread )
+    {
+        gEndTime = MPI_Wtime();
+        printf("%lf\n",gEndTime-gStartTime);
+    }
+
     // At this time all data should be on mainThread so write it to file
-    
+    if( gRank == mainThread )
+        writeFile(finalMatrix, gX1, gY2);    
 
     // Free Data
     free(tempC);
     if( gRank == mainThread )
         free(finalMatrix);
     freeMatrixData();
-
+    
     // Finalize MPI
     MPI_Finalize();
 
