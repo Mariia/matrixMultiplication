@@ -115,11 +115,11 @@ void writeFile( double *matrix, int x1, int y1)
         for( y = 0; y < y1-1; y++ )
         {
 //            fprintf(output,"%lf ", matrix[x*y1 + y]);
-            fprintf(output,"%d ", (int)matrix[x*y1 + y]);
+            fprintf(output,"%d ", (int)rint(matrix[x*y1 + y]));
         }
         // This will prevent the extraspace and instead let's put a newline
 //        fprintf(output,"%lf\n",(int)matrix[x*y1 + y]);
-        fprintf(output,"%d\n",(int)matrix[x*y1 + y]);
+        fprintf(output,"%d\n",(int)rint(matrix[x*y1 + y]));
     }
 
     //Clean up
