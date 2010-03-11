@@ -1,1 +1,14 @@
-To compile the code simply run 'make' and to run it use 'make run' it will run passing it arguments specified in the makefile, which would have to be edited.
+Since we were asked to implement Matrix Multiplication in serial,parallel, and
+using Cannon's Algorithm, there are three ways in which you can compile and run
+this code. To compile simply run the following:
+    use intel-mvapich-1.0.1
+    make <METHOD>
+Where <METHOD> is either serial,parallel, or cannon. This will compile the code
+for the respective method. 
+
+To run the code for the respective method simply use the following command:
+    make run<METHOD>
+
+The output of the programs will be a time telling you how long it took to run 
+the MM, in addition a 'C.txt' will be created with the output matrix ( output
+on the matrices is rounded to INTs ).
