@@ -6,8 +6,8 @@ PARALLEL = parallel
 CANNON = cannon
 
 CFLAGS = -g -Wall -c
-MATRIX_DIMENSIONS = 4 4 4   
-N_PROCS = 4
+MATRIX_DIMENSIONS = 512 512 512   
+N_PROCS = 1
 VALGRIND = --tool=memcheck
 
 serial: serial.o matrixOperations.o
@@ -16,12 +16,18 @@ serial: serial.o matrixOperations.o
 parallel: parallel.o matrixOperations.o
 	mpicc parallel.o matrixOperations.o -o $(PARALLEL)
 
+cannon: cannon.o matrixOperations.o
+	mpicc cannon.o matrixOperations.o -o $(CANNON)
+
 # Dependencies
 serial.o: serial.c
 	mpicc $(CFLAGS) serial.c
 
 parallel.o: parallel.c
 	mpicc $(CFLAGS) parallel.c
+
+cannon.o: cannon.c
+	mpicc $(CFLAGS) cannon.c
 
 matrixOperations.o: matrixOperations.c
 	mpicc $(CFLAGS) matrixOperations.c
@@ -31,7 +37,10 @@ runSerial:
 	mpiexec -n $(N_PROCS) ./$(SERIAL) $(MATRIX_DIMENSIONS)
 
 runParallel:
-	mpiexec ./$(PARALLEL) $(MATRIX_DIMENSIONS)
+	mpiexec -n $(N_PROCS) ./$(PARALLEL) $(MATRIX_DIMENSIONS)
+
+runCannon:
+	mpiexec -n $(N_PROCS) ./$(CANNON) $(MATRIX_DIMENSIONS)
 
 memtestSerial:
 	valgrind $(VALGRIND) mpiexec ./$(SERIAL) $(MATRIX_DIMENSIONS)

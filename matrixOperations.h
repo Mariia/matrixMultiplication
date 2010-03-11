@@ -38,7 +38,6 @@ double * B;
 // ============================================================================
 void setMatrixData(int argc, char ** argv);
 
-
 // ===  FUNCTION  =============================================================
 //         Name:  freeMatrixData()
 //  Description:  Releases the data Matrices
@@ -77,3 +76,15 @@ void extractMatrix( char *filename, double *C );
 //  Description:  Performs simple cut and dry matrix mult.
 // ============================================================================
 double *matrixMult(double *A, int x1, int y1, double *B, int x2, int y2);
+
+// ===  FUNCTION  =============================================================
+//         Name:  CannonAlgorithm(int,double,double,double,MPI_Comm)
+//  Description:  The book's implementation of Cannon's Algorithm
+// ============================================================================
+void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm);
+
+// ===  FUNCTION  =============================================================
+//         Name:  MatrixMultiply(int,double*,double*,double*)
+//  Description:  The books implementation of MM
+// ============================================================================
+void MatrixMultiply(int n, double *a, double *b, double *c) ;
