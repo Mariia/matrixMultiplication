@@ -6,9 +6,27 @@ this code. To compile simply run the following:
 Where <METHOD> is either serial,parallel, or cannon. This will compile the code
 for the respective method. 
 
+Before running, the makefile needs to be modified to match the dimensions of 
+the matrices given in files A.txt and B.txt. The variable to look at is 
+MATRIX_DIMENSIONS, where the first argument is the number of rows in matrix
+A and the second argument is the number of columns in A and the number of rows
+in B, finally, the last argument is the number of columns in matrix B.
+
+Another variable that can be set is N_PROCS. This variable sets the number of 
+processors you want to use. 
+
 To run the code for the respective method simply use the following command:
     make run<METHOD>
 
 The output of the programs will be a time telling you how long it took to run 
 the MM, in addition a 'C.txt' will be created with the output matrix ( output
 on the matrices is rounded to INTs ).
+
+Serial:
+There is nothing special with this binary all that needs to supplied is the 
+matrices and the proper size change in the makefile.
+
+Parallel:
+The same thing as Serial, but the number of processors must equal the number 
+columns in matrix B. In case that you have more processors than rows, you can 
+adjust this in the makefile with N_PROCS.
