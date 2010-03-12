@@ -181,8 +181,8 @@ void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm)
    
       // There needs to be some switching done here
       /* Compute ranks of the up and left shifts */ 
-      MPI_Cart_shift(comm_2d, 0, -1, &rightrank, &leftrank); 
-      MPI_Cart_shift(comm_2d, 1, -1, &downrank, &uprank); 
+      MPI_Cart_shift(comm_2d, 1, -1, &rightrank, &leftrank); 
+      MPI_Cart_shift(comm_2d, 0, -1, &downrank, &uprank); 
    
       /* Determine the dimension of the local matrix block */ 
       nlocal = n/dims[0]; 

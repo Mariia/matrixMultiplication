@@ -5,8 +5,8 @@ SERIAL = serial
 PARALLEL = parallel
 CANNON = cannon
 
-CFLAGS = -g -Wall -c
-MATRIX_DIMENSIONS = 512 512 512   
+CFLAGS = -Wall -c
+MATRIX_DIMENSIONS = 16 16 16   
 N_PROCS = 1
 VALGRIND = --tool=memcheck
 
