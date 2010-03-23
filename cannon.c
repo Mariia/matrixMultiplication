@@ -2,6 +2,7 @@
 
 int main( int argc, char *argv[] )
 {
+
     initializeMPI(&argc, argv);
     int mainThread = 0;
     
