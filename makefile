@@ -40,7 +40,7 @@ runParallel:
 	mpiexec -n $(N_PROCS) ./$(PARALLEL) $(MATRIX_DIMENSIONS)
 
 runCannon:
-	mpiexec -n $(N_PROCS) ./$(CANNON) $(MATRIX_DIMENSIONS)
+	mpiexec ./$(CANNON) $(MATRIX_DIMENSIONS)
 
 memtestSerial:
 	valgrind $(VALGRIND) mpiexec ./$(SERIAL) $(MATRIX_DIMENSIONS)
