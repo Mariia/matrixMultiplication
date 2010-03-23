@@ -88,3 +88,10 @@ void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm);
 //  Description:  The books implementation of MM
 // ============================================================================
 void MatrixMultiply(int n, double *a, double *b, double *c) ;
+
+
+// ===  FUNCTION  =============================================================
+//         Name:  printMatrix(double*,int,int)
+//  Description:  Prints the matrix
+// ============================================================================
+void printMatrix(double * matrix, int x , int y );
