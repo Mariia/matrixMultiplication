@@ -62,12 +62,12 @@ void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm)
       MPI_Comm comm_2d; 
 
       // Print Matrix
-      if( gRank == 0 )
-      {
-          printMatrix(a,n,n);
-          printf("\n");
-          printMatrix(b,n,n);
-      }
+//      if( gRank == 0 )
+//      {
+//          printMatrix(a,n,n);
+//          printf("\n");
+//          printMatrix(b,n,n);
+//      }
    
       /* Get the communicator related information */ 
       MPI_Comm_size(comm, &npes); 
@@ -97,27 +97,52 @@ void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm)
       /* Perform the initial matrix alignment. First for A and then for B */ 
 //      MPI_Cart_shift(comm_2d, 0, -mycoords[0], &shiftsource, &shiftdest); 
       MPI_Cart_shift(comm_2d, 1, -mycoords[0], &shiftsource, &shiftdest); 
+      if ( gRank == 1 ) 
+          printf(" %d %d \n", shiftsource, shiftsource);
+
       MPI_Sendrecv_replace(a, nlocal*nlocal, MPI_DOUBLE, shiftdest, 
           1, shiftsource, 1, comm_2d, &status); 
    
 //      MPI_Cart_shift(comm_2d, 1, -mycoords[1], &shiftsource, &shiftdest); 
       MPI_Cart_shift(comm_2d, 0, -mycoords[1], &shiftsource, &shiftdest); 
+      if ( gRank == 1 ) 
+          printf(" %d %d \n", shiftsource, shiftsource);
       MPI_Sendrecv_replace(b, nlocal*nlocal, MPI_DOUBLE, 
           shiftdest, 1, shiftsource, 1, comm_2d, &status); 
    
       /* Get into the main computation loop */ 
-      for (i=0; i<dims[0]; i++) { 
+    for (i=0; i<dims[0]; i++) 
+    { 
+        if( gRank == 0 )
+        {
+            printMatrix(b,n,n);
+            puts("");
+        }
+//        //Print C before
+//        puts("Before: C Matrix");
+//        printMatrix(c,n,n);
         MatrixMultiply(nlocal, a, b, c); /*c=c+a*b*/ 
-   
+
+
+//        //Print C after
+//        puts("After: C Matrix");
+//        printMatrix(c,n,n);
+
         /* Shift matrix a left by one */ 
         MPI_Sendrecv_replace(a, nlocal*nlocal, MPI_DOUBLE, 
-            leftrank, 1, rightrank, 1, comm_2d, &status); 
-      printf("Proc1: %d\nProc2: %d Dims:%d\n",my2drank,gRank,i); 
-   
+        leftrank, 1, rightrank, 1, comm_2d, &status); 
+//        printf("Proc1: %d\nProc2: %d Dims:%d\n",my2drank,gRank,i); 
+
         /* Shift matrix b up by one */ 
         MPI_Sendrecv_replace(b, nlocal*nlocal, MPI_DOUBLE, 
-            uprank, 1, downrank, 1, comm_2d, &status); 
-      } 
+        uprank, 1, downrank, 1, comm_2d, &status); 
+
+        if( gRank == 0 )
+        {
+            printMatrix(b,n,n);
+            puts("");
+        }
+    } 
    
       /* Restore the original distribution of a and b */ 
 //      MPI_Cart_shift(comm_2d, 0, +mycoords[0], &shiftsource, &shiftdest); 
@@ -131,7 +156,6 @@ void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm)
           shiftdest, 1, shiftsource, 1, comm_2d, &status); 
    
       MPI_Comm_free(&comm_2d); /* Free up communicator */ 
-    printMatrix(c,n,n);
 }
 
     /* This function performs a serial matrix-matrix multiplication c = a*b */ 
@@ -140,7 +164,7 @@ void MatrixMultiply(int n, double *a, double *b, double *c)
     int i, j, k; 
 
     for (i=0; i<n; i++) 
-    for (j=0; j<n; j++) 
-    for (k=0; k<n; k++) 
-    c[i*n+j] += a[i*n+k]*b[k*n+j]; 
+        for (j=0; j<n; j++) 
+            for (k=0; k<n; k++) 
+                c[i*n+j] += a[i*n+k]*b[k*n+j]; 
 }
