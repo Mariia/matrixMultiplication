@@ -21,6 +21,10 @@ int main( int argc, char *argv[] )
     //
     // Initialize MPI
 
+    // Start tracking time
+    if( gRank == g_mainThread )
+        gStartTime = MPI_Wtime();
+
     setMatrixData(argc,argv); 
     extractMatrix(gMatrixA,A);
     extractMatrix(gMatrixB,B);
@@ -36,10 +40,10 @@ int main( int argc, char *argv[] )
     
     CannonAlgorithm(gX1,A,B,C,MPI_COMM_WORLD);
 
-    MPI_Barrier(MPI_COMM_WORLD);
-
     if( gRank == 0 )
     {
+        gEndTime = MPI_Wtime();
+        printf("%lf\n",gEndTime-gStartTime);
         writeFile(C,gX1,gY1);
     }
 
@@ -97,27 +101,23 @@ void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm)
       /* Perform the initial matrix alignment. First for A and then for B */ 
 //      MPI_Cart_shift(comm_2d, 0, -mycoords[0], &shiftsource, &shiftdest); 
       MPI_Cart_shift(comm_2d, 1, -mycoords[0], &shiftsource, &shiftdest); 
-      if ( gRank == 1 ) 
-          printf(" %d %d \n", shiftsource, shiftsource);
 
       MPI_Sendrecv_replace(a, nlocal*nlocal, MPI_DOUBLE, shiftdest, 
           1, shiftsource, 1, comm_2d, &status); 
    
 //      MPI_Cart_shift(comm_2d, 1, -mycoords[1], &shiftsource, &shiftdest); 
       MPI_Cart_shift(comm_2d, 0, -mycoords[1], &shiftsource, &shiftdest); 
-      if ( gRank == 1 ) 
-          printf(" %d %d \n", shiftsource, shiftsource);
       MPI_Sendrecv_replace(b, nlocal*nlocal, MPI_DOUBLE, 
           shiftdest, 1, shiftsource, 1, comm_2d, &status); 
    
       /* Get into the main computation loop */ 
     for (i=0; i<dims[0]; i++) 
     { 
-        if( gRank == 0 )
-        {
-            printMatrix(b,n,n);
-            puts("");
-        }
+//        if( gRank == 0 )
+//        {
+//            printMatrix(b,n,n);
+//            puts("");
+//        }
 //        //Print C before
 //        puts("Before: C Matrix");
 //        printMatrix(c,n,n);
@@ -137,11 +137,11 @@ void CannonAlgorithm(int n, double *a, double *b, double *c, MPI_Comm comm)
         MPI_Sendrecv_replace(b, nlocal*nlocal, MPI_DOUBLE, 
         uprank, 1, downrank, 1, comm_2d, &status); 
 
-        if( gRank == 0 )
-        {
-            printMatrix(b,n,n);
-            puts("");
-        }
+//        if( gRank == 0 )
+//        {
+//            printMatrix(b,n,n);
+//            puts("");
+//        }
     } 
    
       /* Restore the original distribution of a and b */ 

@@ -1,8 +1,8 @@
 // ============================================================================
 // 
-//       Filename:  parallel.c
+//       Filename:  parallelOMP.c
 // 
-//    Description:  Will perform matrix multiplication using MPI 
+//    Description:  Will perform matrix multiplication using MPI and openMP
 // 
 //        Created:  03/08/2010 09:24:50 AM
 //       Compiler:  mpicc
@@ -34,11 +34,13 @@ int main( int argc, char *argv[] )
     // Root Processor will do the following
     if( gRank == mainThread )
     {
-        extractMatrix(gMatrixA,A);
-        extractMatrix(gMatrixB,B);
-
+        printf("Number of threads: %d\n", omp_get_max_threads() );
         // Once done spread the wealth
+        printf("Hi I'm thread#: %d\n", omp_get_thread_num());
+        extractMatrix(gMatrixA,A);
         MPI_Bcast(A, gX1*gY1, MPI_DOUBLE, mainThread, MPI_COMM_WORLD);
+        printf("Hi I'm thread#: %d\n", omp_get_thread_num());
+        extractMatrix(gMatrixB,B);
         MPI_Bcast(B, gX2*gY2, MPI_DOUBLE, mainThread, MPI_COMM_WORLD);
     }
     else
@@ -60,6 +62,7 @@ int main( int argc, char *argv[] )
         // So we have enough processors to cover all columns
         int i, j; 
         double tempSum = 0.0;
+        #pragma omp parallel for private(j, tempSum)
         for( i = 0; i < gX1 ; i++ )
         {
             for( j = 0; j < gY1 ; j++ )
@@ -73,12 +76,12 @@ int main( int argc, char *argv[] )
     }
     else
     {
-        puts("I only support square matrices");
+        puts("The number of columns on Matrix B must match the number of nodes");
         return 1;
     }
 
     // Everybody should have their data now so let's sync
-    MPI_Barrier(MPI_COMM_WORLD);
+//    MPI_Barrier(MPI_COMM_WORLD);
 
     // Only the root node should 
     if( gRank == mainThread )
@@ -89,6 +92,7 @@ int main( int argc, char *argv[] )
         
         // Store mainThreads Data in the finalMatrix
         int i;
+        #pragma omp parallel for
         for(i = 0; i < gX1; i++)
         {
             finalMatrix[i*gY2+mainThread] = tempC[i];
@@ -96,12 +100,14 @@ int main( int argc, char *argv[] )
 
         // Start receiving all the data
         int currentRank;
+
         for( currentRank = mainThread + 1; currentRank < gNumProcessors; currentRank++)
         {
             // Create temp vector 
             double * tempVector = ( double * )malloc(sizeof(double)*gX1);
             MPI_Recv(tempVector,gX1,MPI_DOUBLE,currentRank,currentRank,MPI_COMM_WORLD, &status);
             // Collect all vectors into the matrix
+            #pragma omp parallel for 
             for(i = 0; i < gX1; i++)
             {
                 finalMatrix[i*gY2+currentRank] = tempVector[i];
@@ -137,4 +143,3 @@ int main( int argc, char *argv[] )
 
     return 0;
 }// ----------  end of function main  ----------
-

@@ -17,7 +17,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <mpi.h>
+#include "mpi.h"
+#include <omp.h>
 
 #define gMatrixA "A.txt"
 #define gMatrixB "B.txt"
@@ -26,6 +27,7 @@
 int gNumProcessors, gRank;     // gRank is the current processor
 int gX1,gY1,gX2,gY2;           // size of matrix A and matrix B
 double gStartTime, gEndTime;
+int g_mainThread = 0;
 
 double * A;
 double * B;

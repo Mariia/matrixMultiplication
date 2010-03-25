@@ -15,16 +15,13 @@
 
 int main( int argc, char *argv[] )
 {
-    // Name root being main thread
-    int mainThread = 0;
-    
     double * finalMatrix;
 
     // Initialize MPI
     initializeMPI(&argc,argv);
 
     // Start tracking time
-    if( gRank == mainThread )
+    if( gRank == g_mainThread )
         gStartTime = MPI_Wtime();
 
     // Get sizes of matrix
@@ -32,20 +29,20 @@ int main( int argc, char *argv[] )
     setMatrixData(argc,argv);
 
     // Root Processor will do the following
-    if( gRank == mainThread )
+    if( gRank == g_mainThread )
     {
         extractMatrix(gMatrixA,A);
         extractMatrix(gMatrixB,B);
 
         // Once done spread the wealth
-        MPI_Bcast(A, gX1*gY1, MPI_DOUBLE, mainThread, MPI_COMM_WORLD);
-        MPI_Bcast(B, gX2*gY2, MPI_DOUBLE, mainThread, MPI_COMM_WORLD);
+        MPI_Bcast(A, gX1*gY1, MPI_DOUBLE, g_mainThread, MPI_COMM_WORLD);
+        MPI_Bcast(B, gX2*gY2, MPI_DOUBLE, g_mainThread, MPI_COMM_WORLD);
     }
     else
     {
         // Get the wealth
-        MPI_Bcast(A, gX1*gY1, MPI_DOUBLE, mainThread, MPI_COMM_WORLD);
-        MPI_Bcast(B, gX2*gY2, MPI_DOUBLE, mainThread, MPI_COMM_WORLD);
+        MPI_Bcast(A, gX1*gY1, MPI_DOUBLE, g_mainThread, MPI_COMM_WORLD);
+        MPI_Bcast(B, gX2*gY2, MPI_DOUBLE, g_mainThread, MPI_COMM_WORLD);
     }
 
     // At this point everyone should have Matrix A and B
@@ -78,25 +75,25 @@ int main( int argc, char *argv[] )
     }
 
     // Everybody should have their data now so let's sync
-    MPI_Barrier(MPI_COMM_WORLD);
+//    MPI_Barrier(MPI_COMM_WORLD);
 
     // Only the root node should 
-    if( gRank == mainThread )
+    if( gRank == g_mainThread )
     {
         // Create a new array to collect all the data into
         finalMatrix = (double *)malloc(sizeof(double)*(gX1*gY2));
         MPI_Status status;
         
-        // Store mainThreads Data in the finalMatrix
+        // Store g_mainThreads Data in the finalMatrix
         int i;
         for(i = 0; i < gX1; i++)
         {
-            finalMatrix[i*gY2+mainThread] = tempC[i];
+            finalMatrix[i*gY2+g_mainThread] = tempC[i];
         }
 
         // Start receiving all the data
         int currentRank;
-        for( currentRank = mainThread + 1; currentRank < gNumProcessors; currentRank++)
+        for( currentRank = g_mainThread + 1; currentRank < gNumProcessors; currentRank++)
         {
             // Create temp vector 
             double * tempVector = ( double * )malloc(sizeof(double)*gX1);
@@ -112,23 +109,23 @@ int main( int argc, char *argv[] )
     else
     {
         // Start sending 
-        MPI_Send(tempC, gX1, MPI_DOUBLE, mainThread,gRank,MPI_COMM_WORLD);
+        MPI_Send(tempC, gX1, MPI_DOUBLE, g_mainThread,gRank,MPI_COMM_WORLD);
     }
 
     //Get the final time now
-    if( gRank == mainThread )
+    if( gRank == g_mainThread )
     {
         gEndTime = MPI_Wtime();
         printf("%lf\n",gEndTime-gStartTime);
     }
 
-    // At this time all data should be on mainThread so write it to file
-    if( gRank == mainThread )
+    // At this time all data should be on g_mainThread so write it to file
+    if( gRank == g_mainThread )
         writeFile(finalMatrix, gX1, gY2);    
 
     // Free Data
     free(tempC);
-    if( gRank == mainThread )
+    if( gRank == g_mainThread )
         free(finalMatrix);
     freeMatrixData();
     

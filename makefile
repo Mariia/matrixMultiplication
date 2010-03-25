@@ -3,6 +3,7 @@
 
 SERIAL = serial
 PARALLEL = parallel
+PARALLELOMP = parallelOMP
 CANNON = cannon
 
 CFLAGS = -Wall -c -g
@@ -16,6 +17,9 @@ serial: serial.o matrixOperations.o
 parallel: parallel.o matrixOperations.o
 	mpicc parallel.o matrixOperations.o -o $(PARALLEL)
 
+parallelOMP: parallelOMP.o matrixOperations.o
+	mpicc -openmp parallelOMP.o matrixOperations.o -o $(PARALLELOMP)
+
 cannon: cannon.o matrixOperations.o
 	mpicc cannon.o matrixOperations.o -o $(CANNON)
 
@@ -25,6 +29,9 @@ serial.o: serial.c
 
 parallel.o: parallel.c
 	mpicc $(CFLAGS) parallel.c
+
+parallelOMP.o: parallelOMP.c
+	mpicc $(CFLAGS) -openmp parallelOMP.c
 
 cannon.o: cannon.c
 	mpicc $(CFLAGS) cannon.c
@@ -38,6 +45,11 @@ runSerial:
 
 runParallel:
 	mpiexec -n $(N_PROCS) ./$(PARALLEL) $(MATRIX_DIMENSIONS)
+
+runParallelOMP:
+	# Export Variables
+	export KMP_AFFINITY=norespect,scatter
+	mpiexec -n $(N_PROCS) ./$(PARALLELOMP) $(MATRIX_DIMENSIONS)
 
 runCannon:
 	mpiexec -n $(N_PROCS) ./$(CANNON) $(MATRIX_DIMENSIONS)
