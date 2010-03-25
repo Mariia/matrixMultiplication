@@ -22,7 +22,7 @@ int main( int argc, char *argv[] )
     // Initialize MPI
 
     // Start tracking time
-    if( gRank == g_mainThread )
+    if( gRank == 0 )
         gStartTime = MPI_Wtime();
 
     setMatrixData(argc,argv); 

@@ -1,0 +1,170 @@
+30 - MPI_COMM_RANK : Null communicator
+25 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+[30] [] Aborting Program!
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+25 - MPI_COMM_RANK : Null communicator
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+[31] [] Aborting Program!
+[25] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+26 - MPI_COMM_RANK : Null communicator
+29 - MPI_COMM_RANK : Null communicator
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+25 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+[28] [] Aborting Program!
+[29] [] Aborting Program!
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+30 - MPI_COMM_RANK : Null communicator
+25 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+[31] [] Aborting Program!
+[30] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+25 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+25 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+25 - MPI_COMM_RANK : Null communicator
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+[25] [] Aborting Program!
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+31 - MPI_COMM_RANK : Null communicator
+25 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+31 - MPI_COMM_RANK : Null communicator
+25 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.
+25 - MPI_COMM_RANK : Null communicator
+[25] [] Aborting Program!
+26 - MPI_COMM_RANK : Null communicator
+[26] [] Aborting Program!
+27 - MPI_COMM_RANK : Null communicator
+[27] [] Aborting Program!
+28 - MPI_COMM_RANK : Null communicator
+[28] [] Aborting Program!
+29 - MPI_COMM_RANK : Null communicator
+[29] [] Aborting Program!
+30 - MPI_COMM_RANK : Null communicator
+[30] [] Aborting Program!
+31 - MPI_COMM_RANK : Null communicator
+[31] [] Aborting Program!
+mpiexec: Warning: accept_abort_conn: MPI_Abort from IP 10.0.13.83, rank 197, killing all.
+mpiexec: Warning: tasks 0-24 died with signal 15 (Terminated).
+mpiexec: Warning: tasks 25-31 exited with status 1.

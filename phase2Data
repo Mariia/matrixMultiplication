@@ -1,0 +1,12 @@
+#! /bin/bash
+
+#PBS -N phase2Data
+#PBS -j oe 
+#PBS -o phase2Data.out
+#PBS -l nodes=8:ppn=8
+#PBS -l walltime=00:15:00
+
+cd $PBS_O_WORKDIR
+use intel-mvapich-1.0.1
+
+./Phase2Script.sh
