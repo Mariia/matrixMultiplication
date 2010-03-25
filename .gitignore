@@ -5,4 +5,6 @@ Tests
 temp
 serial
 parallel
+cannon
+parallelOMP
 Phase2Results
