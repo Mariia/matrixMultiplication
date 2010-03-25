@@ -8,3 +8,8 @@ parallel
 cannon
 parallelOMP
 Phase2Results
+Results_*
+*.odt
+*.pdf
+comparingParallel
+createGif

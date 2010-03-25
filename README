@@ -3,7 +3,7 @@ using Cannon's Algorithm, there are three ways in which you can compile and run
 this code. To compile simply run the following:
     use intel-mvapich-1.0.1
     make <METHOD>
-Where <METHOD> is either serial,parallel, or cannon. This will compile the code
+Where <METHOD> is either serial, parallel, parallelOMP, or cannon. This will compile the code
 for the respective method. 
 
 Before running, the makefile needs to be modified to match the dimensions of 
@@ -30,3 +30,10 @@ Parallel:
 The same thing as Serial, but the number of processors must equal the number 
 columns in matrix B. In case that you have more processors than rows, you can 
 adjust this in the makefile with N_PROCS.
+
+ParallelOMP:
+It's the same as Parallel, the only difference is that this is a hybrid and it uses 
+openMP.
+
+Cannon:
+This method should run with the same modifications as the other executables.
